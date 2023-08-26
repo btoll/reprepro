@@ -2,6 +2,10 @@
 $ vagrant up
 ```
 
+**DO NOT** use `vagrant ssh` to log into the machine!!
+
+`gpg-agent` forwarding needs to be established, so use a command like this:
+
 ```config
 $ ssh \
     -i .vagrant/machines/default/virtualbox/private_key \
@@ -11,6 +15,8 @@ $ ssh \
     -p 2222 \
     vagrant@127.0.0.1
 ```
+
+> Vagrant does have its own way of using `ssh` identities, although I'm not using it here.
 
 Import packages:
 
@@ -35,5 +41,11 @@ $ reprepro --basedir base removefilter bullseye 'Package (== asbits), Version (=
 
 ```bash
 No section and no priority for 'asbits', skipping.
+```
+
+## Troubleshooting
+
+```bash
+vagrant@127.0.0.1: Permission denied (publickey).
 ```
 
