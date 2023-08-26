@@ -11,11 +11,12 @@ for package_name in package_names:
     out = subprocess.run(["bash", "-c", f"reprepro --basedir base listfilter bullseye 'Package (== {package_name}), Version (== 1.0.0)'"], capture_output=True, check=True)
 
     if not len(out.stdout):
+        package_dir = f"{packages_dir}/{package_name}/1.0.0/{package_name}-1.0.0"
         deb = f"{package_name}_1.0.0_amd64.deb"
         dsc = f"{package_name}_1.0.0.dsc"
 
         try:
-            subprocess.run(["bash", "-c", f"reprepro --basedir base includedeb bullseye {packages_dir}/{package_name}/1.0.0/{deb}"], capture_output=False, check=True)
+            subprocess.run(["bash", "-c", f"reprepro --basedir base includedeb bullseye {package_dir}/{deb}"], capture_output=False, check=True)
             print(f"Imported {packages_dir}/{package_name}/1.0.0/{deb}")
         except subprocess.CalledProcessError as exc:
             print(
@@ -24,7 +25,7 @@ for package_name in package_names:
             )
 
         try:
-            subprocess.run(["bash", "-c", f"reprepro --basedir base includedsc bullseye {packages_dir}/{package_name}/1.0.0/{dsc}"], capture_output=False, check=True)
+            subprocess.run(["bash", "-c", f"reprepro --basedir base includedsc bullseye {package_dir}/{dsc}"], capture_output=False, check=True)
             print(f"Imported {packages_dir}/{package_name}/1.0.0/{dsc}")
         except subprocess.CalledProcessError as exc:
             print(
