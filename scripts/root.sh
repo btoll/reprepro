@@ -6,6 +6,8 @@ umask 022
 
 apt-get update && \
 apt-get install -y \
+    curl \
+    git \
     nginx \
     reprepro \
     tree
@@ -40,6 +42,10 @@ systemctl restart nginx
 
 echo "StreamLocalBindUnlink yes" >> /etc/ssh/sshd_config
 systemctl restart sshd
+
+# Fixes the "-bash: warning: setlocale: LC_ALL: cannot change locale (en_IN.UTF-8)" warning.
+# Also, fixes the same warnings for Perl.
+localedef -i en_US -f UTF-8 en_US.UTF-8
 
 su -c "source /vagrant/scripts/user.sh" vagrant
 
