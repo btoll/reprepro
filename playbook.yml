@@ -1,0 +1,8 @@
+---
+- name: kilgoretrout
+  hosts: kilgoretrout
+  become: true
+
+  roles:
+    - common
+

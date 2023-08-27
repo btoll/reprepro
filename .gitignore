@@ -1,5 +1,7 @@
 public.key
 
 packages/
+roles/
+
 .vagrant/
 
